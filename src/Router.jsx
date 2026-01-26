@@ -14,6 +14,11 @@ export const Router = () => {
     const [rangeValue, setRangeValue] = useState([]);
     const [minPrice, setMinPrice] = useState();
     const [maxPrice, setMaxPrice] = useState();
+    const [open, setOpen] = useState(false);
+
+    const toggleDrawer = (newOpen) => () => {
+        setOpen(newOpen);
+    };
 
     const applyFilterAndSort = () => {
         let result =
@@ -62,14 +67,14 @@ export const Router = () => {
             setCategories(cat);
         }
         if (products.length > 0) {
-            let min=products[0].price;
-            let max=products[0].price;
+            let min = products[0].price;
+            let max = products[0].price;
             for (let i = 0; i < products.length; i++) {
                 if (products[i].price < min) {
-                    min=products[i].price;
+                    min = products[i].price;
                 }
                 if (products[i].price > max) {
-                    max=products[i].price;
+                    max = products[i].price;
                 }
             }
             setMinPrice(Math.floor(min));
@@ -78,9 +83,9 @@ export const Router = () => {
 
     }, [products]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setRangeValue([minPrice, maxPrice]);
-    },[minPrice,maxPrice]);
+    }, [minPrice, maxPrice]);
 
     useEffect(() => {
         console.log(cart);
@@ -108,7 +113,13 @@ export const Router = () => {
             const current = prev[productId] ?? 0;
             const next = sign === "+" ? current + 1 : current - 1;
 
-            return ({ ...prev, [productId]: next })
+            if (next <= 0) {
+                const updatedCart = { ...prev };
+                delete updatedCart[productId];
+                return updatedCart;
+            }
+
+            return { ...prev, [productId]: next };
         })
     }
 
@@ -124,7 +135,7 @@ export const Router = () => {
     ])
     return (
         <ShopContext.Provider
-            value={{ products: filteredProducts, categories, cart, selectedCategory, selectedSort, value: rangeValue, minPrice, maxPrice, handleCatChange, handleAmoutChange, handleSortChange, handleRangeValueChange }}>
+            value={{ allProducts: products, products: filteredProducts, categories, cart, selectedCategory, selectedSort, value: rangeValue, minPrice, maxPrice, open, handleCatChange, handleAmoutChange, handleSortChange, handleRangeValueChange, toggleDrawer }}>
             <RouterProvider router={router} />
         </ShopContext.Provider>
     )

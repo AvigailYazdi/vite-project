@@ -35,18 +35,65 @@
     font-weight: 500;
 }
 
-.priceRatingDiv{
+.priceRatingDiv {
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-.priceSpan{
+.priceSpan {
     font-size: 30px;
     font-weight: 700;
 }
 
-.descriptionDiv{
+.descriptionDiv {
     display: flex;
     flex-direction: column;
+}
+
+.cartItemTitle{
+    display: block; 
+    width: 220px;
+}
+
+.cart{
+    display: block;
+    width: 400px;
+}
+
+.cartHeader{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 15px;
+}
+
+.cartFooter{
+    border: 1px solid #A5A5A5;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #F2F2F2;
+    position: sticky;
+    bottom: 0;
+    height: 100px;
+    gap: 10px;
+}
+
+.totalPrice{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.chechOutBtn{
+    display: flex;
+    justify-content: center;
+}
+
+.cartBtnDiv{
+    display: flex;
+    align-items: center;
 }

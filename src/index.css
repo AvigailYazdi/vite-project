@@ -116,12 +116,7 @@ q:after {
   content: ’’;
   content: none;
 }
-/* remember to define visible focus styles! 
-:focus{
-  outline:?????;
-} */
 
-/* remember to highlight inserts somehow! */
 ins {
   text-decoration: none;
 }
@@ -134,11 +129,6 @@ table {
   border-spacing: 0;
 }
 
-/*------------------------------------*\
-  $MAIN
-\*------------------------------------*/
-
-
 body {
   margin: 0 auto;
   width: 90%;
@@ -147,7 +137,6 @@ body {
   background-color: #f6f6f6;
 }
 
-/* Typography */
 
 h1 {
   font-size: 28px;
@@ -165,7 +154,6 @@ h6 {
   font-size: 14px;
 }
 
-/* Product Layout */
 
 .product-filter {
   display: flex;
@@ -175,6 +163,7 @@ h6 {
 .sort {
   display: flex;
   align-self: flex-end;
+  gap: 10px;
 }
 
 .collection-sort {
