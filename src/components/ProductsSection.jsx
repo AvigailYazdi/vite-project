@@ -11,7 +11,7 @@ export const ProductsSection = () => {
                     title={product.title}
                     price={product.price}
                     image={product.image}
-                    id={product.id}
+                    id={product._id}
                 />
             ))}
         </section>

@@ -7,7 +7,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 export const CartItem = (props) => {
     const { id, amount } = props;
     const { allProducts, handleAmoutChange } = useContext(ShopContext);
-    const product = allProducts.filter(p => p.id === +id)[0];
+    const product = allProducts.filter(p => p._id === id)[0];
 
     return (
         <ListItem

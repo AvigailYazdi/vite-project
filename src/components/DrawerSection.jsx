@@ -11,7 +11,7 @@ export const DrawerSection = () => {
     let totalPrice = 0;
     for (let i in cart) {
         totalAmount += cart[i];
-        totalPrice += allProducts.filter(p => p.id === +i)[0].price * cart[i];
+        totalPrice += allProducts.filter(p => p._id === i)[0].price * cart[i];
     }
     return (
         < Drawer open={open} onClose={toggleDrawer(false)} >

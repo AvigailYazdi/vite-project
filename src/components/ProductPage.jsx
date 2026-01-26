@@ -6,7 +6,7 @@ import { Rating } from "@mui/material";
 export const ProductPage = () => {
     const { productId } = useParams();
     const { products } = useContext(ShopContext);
-    const product = products.filter(p => p.id === +productId)[0];
+    const product = products.filter(p => p._id === productId)[0];
     console.log(product);
     return (
         <div className={"productPageMainDiv"}>
