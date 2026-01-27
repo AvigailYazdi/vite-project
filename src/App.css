@@ -51,17 +51,20 @@
     flex-direction: column;
 }
 
-.cartItemTitle{
-    display: block; 
+.cartItemTitle {
+    display: block;
     width: 220px;
 }
 
-.cart{
+.cart {
     display: block;
+    flex: 1;
     width: 400px;
+    overflow-y: auto;
+
 }
 
-.cartHeader{
+.cartHeader {
     height: 50px;
     display: flex;
     align-items: center;
@@ -69,31 +72,37 @@
     padding: 0px 15px;
 }
 
-.cartFooter{
+.cartFooter {
     border: 1px solid #A5A5A5;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: #F2F2F2;
-    position: sticky;
-    bottom: 0;
+    margin-top: auto;
     height: 100px;
     gap: 10px;
 }
 
-.totalPrice{
+.totalPrice {
     display: flex;
     justify-content: center;
     gap: 30px;
 }
 
-.chechOutBtn{
+.chechOutBtn {
     display: flex;
     justify-content: center;
 }
 
-.cartBtnDiv{
+.cartBtnDiv {
     display: flex;
     align-items: center;
+    padding-left: 20px;
+}
+
+.drawerContent {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
