@@ -17,7 +17,7 @@ export const FilterSortComp = (props) => {
           onChange={(e) => handleChange(e.target.value)}
         >
           {listOfOptions.map((opt) => (
-            <MenuItem value={opt}>{opt}</MenuItem>
+            <MenuItem key={opt} value={opt}>{opt}</MenuItem>
           ))}
         </Select>
       </FormControl>

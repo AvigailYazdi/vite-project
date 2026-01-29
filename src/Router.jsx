@@ -3,98 +3,32 @@ import App from "./App"
 import { ProductPage } from "./components/ProductPage"
 import { useEffect, useState } from "react";
 import { ShopContext } from "./ShopContext";
+import { useAllProducts } from "./hooks/useAllProducts";
 
 export const Router = () => {
-    const [products, setProducts] = useState([]);
-    const [filteredProducts, setFilteredProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [cart, setCart] = useState({});
     const [selectedCategory, setSelectedCategory] = useState("All Items");
     const [selectedSort, setSelectedSort] = useState("No sort");
-    const [rangeValue, setRangeValue] = useState([]);
-    const [minPrice, setMinPrice] = useState();
-    const [maxPrice, setMaxPrice] = useState();
+    const [priceRange, setPriceRange] = useState([]);
     const [open, setOpen] = useState(false);
+
+    const { data: products = [] } = useAllProducts();
+
+    const categories = ["All Items", ...new Set(products.map((p) => p.category))];
+
+    const prices = products.map((p) => p.price);
+    const minPrice = prices.length ? Math.floor(Math.min(...prices)) : 0;
+    const maxPrice = prices.length ? Math.ceil(Math.max(...prices)) : 0;
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
 
-    const applyFilterAndSort = () => {
-        let result =
-            selectedCategory === "All Items"
-                ? products
-                : products.filter((p) => p.category === selectedCategory);
-
-
-        result = result.filter((p) => p.price >= rangeValue[0] && p.price <= rangeValue[1]);
-
-        if (selectedSort && selectedSort !== "No sort") {
-            const sortMap = {
-                "Alphabetically, A-Z": (a, b) => a.title.localeCompare(b.title, "en"),
-                "Alphabetically, Z-A": (a, b) => b.title.localeCompare(a.title, "en"),
-                "Price, low to high": (a, b) => a.price - b.price,
-                "Price, high to low": (a, b) => b.price - a.price,
-            };
-
-            const sortFunc = sortMap[selectedSort];
-            if (sortFunc) {
-                result = [...result].sort(sortFunc);
-            }
-        } else {
-
-            result = [...result];
-        }
-
-        return result;
-    };
-
     useEffect(() => {
-        const handleProducts = async () => {
-            const response = await fetch("http://localhost:3000/products");
-            const data = await response.json();
-            setProducts(data);
-        };
-        handleProducts();
-    }, []);
-
-    useEffect(() => {
-        const cat = products.map((p) => p.category)
-            .filter((value, index, array) => array.indexOf(value) === index);
-
-        if (cat.length > 0) {
-            cat.unshift("All Items");
-            setCategories(cat);
+        if (minPrice !== 0 || maxPrice !== 0) {
+            setPriceRange([minPrice, maxPrice]);
         }
-        if (products.length > 0) {
-            let min = products[0].price;
-            let max = products[0].price;
-            for (let i = 0; i < products.length; i++) {
-                if (products[i].price < min) {
-                    min = products[i].price;
-                }
-                if (products[i].price > max) {
-                    max = products[i].price;
-                }
-            }
-            setMinPrice(Math.floor(min));
-            setMaxPrice(Math.ceil(max));
-        }
-
-    }, [products]);
-
-    useEffect(() => {
-        setRangeValue([minPrice, maxPrice]);
     }, [minPrice, maxPrice]);
-
-    useEffect(() => {
-        console.log(cart);
-    }, [cart]);
-
-    useEffect(() => {
-        setFilteredProducts(applyFilterAndSort());
-    }, [products, selectedCategory, selectedSort, rangeValue])
-
 
     const handleCatChange = (category) => {
         setSelectedCategory(category);
@@ -104,8 +38,8 @@ export const Router = () => {
         setSelectedSort(sortType);
     };
 
-    const handleRangeValueChange = (event, newRangeValue) => {
-        setRangeValue(newRangeValue);
+    const handlePriceRangeChange = (event, newPriceRange) => {
+        setPriceRange(newPriceRange);
     };
 
     const handleAmoutChange = (productId, sign) => {
@@ -135,7 +69,7 @@ export const Router = () => {
     ])
     return (
         <ShopContext.Provider
-            value={{ allProducts: products, products: filteredProducts, categories, cart, selectedCategory, selectedSort, value: rangeValue, minPrice, maxPrice, open, handleCatChange, handleAmoutChange, handleSortChange, handleRangeValueChange, toggleDrawer }}>
+            value={{ categories, cart, selectedCategory, selectedSort, priceRange, minPrice, maxPrice, open, handleCatChange, handleAmoutChange, handleSortChange, handlePriceRangeChange, toggleDrawer }}>
             <RouterProvider router={router} />
         </ShopContext.Provider>
     )

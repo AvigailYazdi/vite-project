@@ -19,7 +19,7 @@ export const ProductCard = (props) => {
       </div>
       <div className="product-info">
         <h5>{props.title}</h5>
-        <h6>{props.price}</h6>
+        <h6>{Number(props.price).toFixed(2)}$</h6>
         <div className="product-amount">
           <IconButton disabled={cart[props.id] === 0 || !cart[props.id]} onClick={() => handleAmoutChange(props.id, "-")}>
             <RemoveIcon />

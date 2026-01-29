@@ -1,13 +1,20 @@
-import { useContext } from "react";
 import { Link, useParams } from "react-router"
-import { ShopContext } from "../ShopContext";
 import { Rating } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSingleProduct } from "../api/products-functions";
 
 export const ProductPage = () => {
     const { productId } = useParams();
-    const { products } = useContext(ShopContext);
-    const product = products.filter(p => p._id === productId)[0];
-    console.log(product);
+    const { data: product, isLoading, isError, error } = useQuery({
+        queryKey: ["product", productId],
+        queryFn: () => fetchSingleProduct(productId),
+        enabled: !!productId,
+    });
+
+    if (isLoading) return <div>Loading product details...</div>;
+    if (isError) return <div>Error: {error.message}</div>;
+    if (!product) return <div>No product found.</div>;
+
     return (
         <div className={"productPageMainDiv"}>
             <div>

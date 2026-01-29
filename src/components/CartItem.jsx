@@ -1,17 +1,19 @@
-import { Avatar, Divider, IconButton, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
+import { Avatar, IconButton, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import { useContext } from "react";
 import { ShopContext } from "../ShopContext";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useAllProducts } from "../hooks/useAllProducts";
 
 export const CartItem = (props) => {
     const { id, amount } = props;
-    const { allProducts, handleAmoutChange } = useContext(ShopContext);
-    const product = allProducts.filter(p => p._id === id)[0];
+    const { handleAmoutChange } = useContext(ShopContext);
+    const { data: allProducts = [] } = useAllProducts();
+    const product = allProducts.find((p) => p._id === id);
+    if (!product) return null;
 
     return (
         <ListItem
-            key={id}
             className="cartItem"
             secondaryAction={
                 <div className="cartItemActions">

@@ -1,11 +1,10 @@
-import * as React from 'react';
 import { useContext } from "react";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { ShopContext } from '../ShopContext';
 
 export default function RangeSlider() {
-    const { minPrice, maxPrice, handleRangeValueChange, value } = useContext(ShopContext);
+    const { minPrice, maxPrice, handlePriceRangeChange, priceRange } = useContext(ShopContext);
 
     return (
         <Box className={"priceSlider"} sx={{ width: 250 }}>
@@ -13,8 +12,8 @@ export default function RangeSlider() {
                 min={minPrice}
                 max={maxPrice}
                 getAriaLabel={() => 'Price range'}
-                value={value}
-                onChange={handleRangeValueChange}
+                value={priceRange}
+                onChange={handlePriceRangeChange}
                 valueLabelDisplay="auto"
                 disableSwap
             />

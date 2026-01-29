@@ -4,7 +4,7 @@ import { FilterSortComp } from "./FilterSortComp";
 import RangeSlider from "./RangeSlider";
 
 export const SortSection = () => {
-  const { cart, categories, handleCatChange, handleSortChange, selectedCategory, selectedSort } = useContext(ShopContext);
+  const { categories, handleCatChange, handleSortChange, selectedCategory, selectedSort } = useContext(ShopContext);
 
   const sortOptions = [
     "No sort",
@@ -18,7 +18,7 @@ export const SortSection = () => {
     <div className="sort">
       <FilterSortComp label={"Filter by"} listOfOptions={categories} handleChange={handleCatChange} value={selectedCategory} />
       <FilterSortComp label={"Sort by"} listOfOptions={sortOptions} handleChange={handleSortChange} value={selectedSort} />
-      <RangeSlider></RangeSlider>
+      <RangeSlider />
     </div >
   );
 };
