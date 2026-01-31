@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
 import App from "./App"
 import { ProductPage } from "./components/ProductPage"
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState } from "react";
 import { ShopContext } from "./ShopContext";
 import { useAllProducts } from "./hooks/useAllProducts";
+import { AdminPage } from "./components/AdminPage";
 
 export const Router = () => {
     const [cart, setCart] = useState({});
@@ -65,6 +66,10 @@ export const Router = () => {
         {
             path: "/products/:productId",
             Component: ProductPage
+        },
+        {
+            path: "/products/admin",
+            Component: AdminPage
         }
     ])
     return (

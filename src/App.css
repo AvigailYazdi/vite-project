@@ -106,3 +106,18 @@
     display: flex;
     flex-direction: column;
 }
+
+.actionsCell {
+    display: flex;
+}
+
+.adminPageDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.adminHeadDiv{
+    margin-top: 20px;
+    display: flex;
+}

@@ -2,15 +2,12 @@ import { Link, useParams } from "react-router"
 import { Rating } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSingleProduct } from "../api/products-functions";
+import { useSingleProduct } from "../hooks/useSingleProduct";
 
 export const ProductPage = () => {
     const { productId } = useParams();
-    const { data: product, isLoading, isError, error } = useQuery({
-        queryKey: ["product", productId],
-        queryFn: () => fetchSingleProduct(productId),
-        enabled: !!productId,
-    });
-
+    const { data: product, isLoading, isError, error } = useSingleProduct(productId);
+    
     if (isLoading) return <div>Loading product details...</div>;
     if (isError) return <div>Error: {error.message}</div>;
     if (!product) return <div>No product found.</div>;
