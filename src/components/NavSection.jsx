@@ -19,7 +19,7 @@ export const NavSection = () => {
 
   return (
     <nav className="product-filter">
-      <h1 onClick={handleNavigate}>Products</h1>
+      <h1 onClick={handleNavigate}>Admin</h1>
       <SortSection />
       <div className="cartBtnDiv">
         <IconButton className="cartButton" onClick={toggleDrawer(true)} color="primary">
